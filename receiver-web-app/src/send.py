@@ -2,8 +2,7 @@ import pika
 
 
 def say_hello(message):
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='message-broker', port=5672))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='message-broker', port=5672))
     channel = connection.channel()
     channel.queue_declare(queue='hello')
     channel.basic_publish(exchange='',

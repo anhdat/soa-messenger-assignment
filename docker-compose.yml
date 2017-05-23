@@ -16,6 +16,21 @@ services:
     ports:
       - "5000:5000"
 
+  talkative-web-app:
+    depends_on:
+      - message-broker
+    build:
+      context: ./talkative-web-app
+    working_dir: /src
+    volumes:
+      - ./talkative-web-app/src:/src/
+    environment:
+      - FLASK_APP=main.py
+      - FLASK_DEBUG=1
+    command: python main.py
+    ports:
+      - "5001:5001"
+
   message-broker:
     hostname: message-host
     image: rabbitmq:3.6.9
