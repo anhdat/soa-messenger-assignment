@@ -1,0 +1,23 @@
+version: '3'
+services:
+
+  receiver-web-app:
+    depends_on:
+      - message-broker
+    build:
+      context: ./receiver-web-app
+    working_dir: /src
+    volumes:
+      - ./receiver-web-app/src:/src/
+    environment:
+      - FLASK_APP=main.py
+      - FLASK_DEBUG=1
+    command: flask run --host=0.0.0.0
+    ports:
+      - "5000:5000"
+
+  message-broker:
+    hostname: message-host
+    image: rabbitmq:3.6.9
+    expose:
+      - "5672"
