@@ -26,8 +26,8 @@ services:
       - FLASK_APP=main.py
       - FLASK_DEBUG=1
     command: flask run --host=0.0.0.0
-    ports:
-      - "5000:5000"
+    expose:
+      - "5000"
 
   talkative-web-app:
     depends_on:
@@ -40,8 +40,8 @@ services:
       - FLASK_APP=main.py
       - FLASK_DEBUG=1
     command: python main.py
-    ports:
-      - "5001:5001"
+    expose:
+      - "5001"
 
   message-broker:
     hostname: message-host
