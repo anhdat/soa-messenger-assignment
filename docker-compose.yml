@@ -1,11 +1,24 @@
 version: '3'
 services:
+  receiver-web-server:
+    build: ./receiver-web-server
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - receiver-web-app
+
+  talkative-web-server:
+    build: ./talkative-web-server
+    ports:
+      - "8000:80"
+    depends_on:
+      - talkative-web-app
 
   receiver-web-app:
     depends_on:
       - message-broker
-    build:
-      context: ./receiver-web-app
+    build: ./receiver-web-app
     working_dir: /src
     volumes:
       - ./receiver-web-app/src:/src/
@@ -19,8 +32,7 @@ services:
   talkative-web-app:
     depends_on:
       - message-broker
-    build:
-      context: ./talkative-web-app
+    build: ./talkative-web-app
     working_dir: /src
     volumes:
       - ./talkative-web-app/src:/src/
